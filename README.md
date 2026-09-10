@@ -91,3 +91,19 @@ Os instaladores entrarão nesta tabela quando o CI multiplataforma publicar. At�
 - **Sem conta** para baixar. Sem pagamento nesta página.
 
 Dúvidas: [kodahub.space](https://kodahub.space) · Affinify
+
+---
+
+## Smoke — fila tri-plataforma (CI / QA)
+
+Checklist rápido após tag `v*.*.*` ou `workflow_dispatch`:
+
+| # | Verificação | Comando / onde |
+|---|-------------|----------------|
+| 1 | README local tem as 3 linhas da fila (Win / Mac / Linux) | `npm test -- tests/unit/docs/koda-downloads-readme.test.ts` |
+| 2 | Release notes geradas do template | job `Generate release notes` em `.github/workflows/desktop-release.yml` |
+| 3 | Artefatos nos 3 SOs no release | GitHub → KODA-Downloads → Releases → assets `KODA-win-x64.exe`, `KODA-linux-x64.AppImage`, `KODA-mac-universal.dmg` |
+| 4 | README público sincronizado | job `Sync KODA-Downloads README` ou `npm run desktop:sync-readme` (requer `gh auth`) |
+| 5 | Ícone no instalador | `electron/icon.png` + `npm run desktop:icon` antes de cada `desktop:pack:*` |
+
+**Bloqueador conhecido:** GitHub Actions billing deve estar ativo antes de publicar tag; resolver em GitHub Settings → Billing (manual).
