@@ -2,9 +2,11 @@
 
 **English** · [Português](#português)
 
-Official public installers for **KODA Desktop** (Electron shell loading `https://kodahub.space/codex/desktop`).
+Official public installers for **KODA Desktop** (Electron shell loading `https://kodahub.space/codex/setup`).
 
 This repository is the **download queue** for all platforms. Only published artifacts listed below are safe to install.
+
+**Latest release:** [v3.0.2](../../releases/tag/v3.0.2) · [All releases](../../releases)
 
 ---
 
@@ -13,10 +15,10 @@ This repository is the **download queue** for all platforms. Only published arti
 | Platform | Status | File | Approx. size |
 |----------|--------|------|--------------|
 | **Windows** x64 | ✅ **Beta — available** | [`KODA-win-x64.exe`](../../releases/latest/download/KODA-win-x64.exe) | ~107 MB |
-| **macOS** universal | 🕐 **Queued** — CI pending | `KODA-mac-universal.dmg` | — |
-| **Linux** x64 | 🕐 **Queued** — CI pending | `KODA-linux-x64.AppImage` | — |
+| **Linux** x64 | ✅ **Beta — available** | [`KODA-linux-x64.tar.gz`](../../releases/latest/download/KODA-linux-x64.tar.gz) | ~110 MB |
+| **macOS** universal | 🕐 **Build on macOS** | `KODA-mac-universal.dmg` | — |
 
-> **Latest tagged release:** see [Releases](../../releases).
+> Optional Linux **AppImage** (`KODA-linux-x64.AppImage`) ships when built on Linux/macOS or on Windows with **Developer Mode** enabled (symlinks). See [Linux](#linux-beta) below.
 
 ---
 
@@ -27,20 +29,51 @@ This repository is the **download queue** for all platforms. Only published arti
 3. Run the installer from **File Explorer** — do not use **Open** from the browser download bar.
 4. If Windows SmartScreen appears, choose **More info → Run anyway**. This build is not Authenticode-signed yet (beta).
 
-After install, KODA opens the Codex desktop welcome at `https://kodahub.space/codex/desktop`.
+After install, KODA opens the setup wizard at `https://kodahub.space/codex/setup`.
 
 ---
 
-## macOS & Linux
+## Linux (beta)
 
-Installers will appear in this table when the multi-platform CI publishes them. Until then, use the [Releases](../../releases) page to check availability — do not trust unofficial mirrors.
+1. Download **`KODA-linux-x64.tar.gz`** from [Latest release](../../releases/latest).
+2. Extract: `tar -xzf KODA-linux-x64.tar.gz`
+3. Run: `./KODA` (or `./KODA --no-sandbox` if your distro requires it)
+
+**AppImage (optional):** run `npm run desktop:pack:linux:appimage` on Linux, or on Windows after enabling **Settings → System → For developers → Developer Mode**, then `npm run desktop:publish`.
+
+---
+
+## macOS
+
+The **`.dmg`** must be built **on a Mac** (Apple toolchain). From the [Project_Koda](https://github.com/affinifyhome-lab/Project_Koda) repo on macOS:
+
+```bash
+npm ci --legacy-peer-deps
+npm run desktop:pack:mac
+npm run desktop:publish
+```
+
+That uploads `KODA-mac-universal.dmg` to this repository (no GitHub Actions billing required).
+
+---
+
+## Publish manually (all platforms)
+
+From **Project_Koda** (private), after building installers into `dist/`:
+
+```bash
+npm run desktop:publish      # gh release → affinifyhome-lab/KODA-Downloads
+npm run desktop:sync-readme  # sync this README
+```
+
+Windows: `npm run desktop:pack:win` · Linux: `npm run desktop:pack:linux:shell` (or full `desktop:pack:linux` on Linux) · macOS: `npm run desktop:pack:mac`
 
 ---
 
 ## Safety
 
 - **Source of truth:** only files attached to [GitHub Releases](../../releases) in this repo.
-- **Open source app:** [affinifyhome-lab/Project_Koda](https://github.com/affinifyhome-lab/Project_Koda)
+- **App source:** [affinifyhome-lab/Project_Koda](https://github.com/affinifyhome-lab/Project_Koda) (private)
 - **No account required** to download. No payment on this page.
 
 Questions: [kodahub.space](https://kodahub.space) · Affinify
@@ -49,9 +82,11 @@ Questions: [kodahub.space](https://kodahub.space) · Affinify
 
 # Português
 
-Instaladores públicos oficiais do **KODA Desktop** (shell Electron que abre `https://kodahub.space/codex/desktop`).
+Instaladores públicos oficiais do **KODA Desktop** (shell Electron que abre `https://kodahub.space/codex/setup`).
 
 Este repositório é a **fila de downloads** de todas as plataformas. Instale apenas artefatos publicados na tabela abaixo.
+
+**Release mais recente:** [v3.0.2](../../releases/tag/v3.0.2) · [Todos os releases](../../releases)
 
 ---
 
@@ -60,10 +95,10 @@ Este repositório é a **fila de downloads** de todas as plataformas. Instale ap
 | Plataforma | Status | Arquivo | Tamanho aprox. |
 |------------|--------|---------|----------------|
 | **Windows** x64 | ✅ **Beta — disponível** | [`KODA-win-x64.exe`](../../releases/latest/download/KODA-win-x64.exe) | ~107 MB |
-| **macOS** universal | 🕐 **Na fila** — CI pendente | `KODA-mac-universal.dmg` | — |
-| **Linux** x64 | 🕐 **Na fila** — CI pendente | `KODA-linux-x64.AppImage` | — |
+| **Linux** x64 | ✅ **Beta — disponível** | [`KODA-linux-x64.tar.gz`](../../releases/latest/download/KODA-linux-x64.tar.gz) | ~110 MB |
+| **macOS** universal | 🕐 **Build no macOS** | `KODA-mac-universal.dmg` | — |
 
-> **Release mais recente:** veja [Releases](../../releases).
+> **AppImage** Linux (`KODA-linux-x64.AppImage`) entra no release quando compilado em Linux/macOS ou no Windows com **Modo de desenvolvedor** ativo. Veja [Linux](#linux-beta-1) abaixo.
 
 ---
 
@@ -74,36 +109,65 @@ Este repositório é a **fila de downloads** de todas as plataformas. Instale ap
 3. Execute pelo **Explorer** — não use **Abrir** na barra de download do navegador.
 4. Se o SmartScreen aparecer, escolha **Mais informações → Executar assim mesmo**. Este build ainda não tem assinatura Authenticode (beta).
 
-Após instalar, o KODA abre o welcome do Codex em `https://kodahub.space/codex/desktop`.
+Após instalar, o KODA abre o wizard em `https://kodahub.space/codex/setup`.
 
 ---
 
-## macOS e Linux
+## Linux (beta)
 
-Os instaladores entrarão nesta tabela quando o CI multiplataforma publicar. Até lá, consulte [Releases](../../releases) — não use espelhos não oficiais.
+1. Baixe **`KODA-linux-x64.tar.gz`** no [release latest](../../releases/latest).
+2. Extraia: `tar -xzf KODA-linux-x64.tar.gz`
+3. Execute: `./KODA` (ou `./KODA --no-sandbox` se a distro exigir)
+
+**AppImage (opcional):** `npm run desktop:pack:linux:appimage` no Linux, ou no Windows com **Configurações → Sistema → Para desenvolvedores → Modo de desenvolvedor**, depois `npm run desktop:publish`.
+
+---
+
+## macOS
+
+O **`.dmg`** só compila **em um Mac**. No repo [Project_Koda](https://github.com/affinifyhome-lab/Project_Koda):
+
+```bash
+npm ci --legacy-peer-deps
+npm run desktop:pack:mac
+npm run desktop:publish
+```
+
+Isso publica `KODA-mac-universal.dmg` aqui, **sem** GitHub Actions pago.
+
+---
+
+## Publicar manualmente (todas as plataformas)
+
+No **Project_Koda** (privado), após gerar instaladores em `dist/`:
+
+```bash
+npm run desktop:publish
+npm run desktop:sync-readme
+```
+
+Windows: `npm run desktop:pack:win` · Linux: `npm run desktop:pack:linux:shell` · macOS: `npm run desktop:pack:mac`
 
 ---
 
 ## Segurança
 
 - **Fonte oficial:** apenas arquivos em [GitHub Releases](../../releases) neste repositório.
-- **App:** [affinifyhome-lab/Project_Koda](https://github.com/affinifyhome-lab/Project_Koda)
+- **Código:** [affinifyhome-lab/Project_Koda](https://github.com/affinifyhome-lab/Project_Koda) (privado)
 - **Sem conta** para baixar. Sem pagamento nesta página.
 
 Dúvidas: [kodahub.space](https://kodahub.space) · Affinify
 
 ---
 
-## Smoke — fila tri-plataforma (CI / QA)
-
-Checklist rápido após tag `v*.*.*` ou `workflow_dispatch`:
+## Smoke — fila tri-plataforma (QA)
 
 | # | Verificação | Comando / onde |
 |---|-------------|----------------|
-| 1 | README local tem as 3 linhas da fila (Win / Mac / Linux) | `npm test -- tests/unit/docs/koda-downloads-readme.test.ts` |
-| 2 | Release notes geradas do template | job `Generate release notes` em `.github/workflows/desktop-release.yml` |
-| 3 | Artefatos nos 3 SOs no release | GitHub → KODA-Downloads → Releases → assets `KODA-win-x64.exe`, `KODA-linux-x64.AppImage`, `KODA-mac-universal.dmg` |
-| 4 | README público sincronizado | job `Sync KODA-Downloads README` ou `npm run desktop:sync-readme` (requer `gh auth`) |
-| 5 | Ícone no instalador | `electron/icon.png` + `npm run desktop:icon` antes de cada `desktop:pack:*` |
+| 1 | README local com Win / Linux / macOS | `npm test -- tests/unit/docs/koda-downloads-readme.test.ts` |
+| 2 | Release notes do template | `docs/Desktop/KODA-Downloads/RELEASE_NOTES.template.md` |
+| 3 | Artefatos no release | `KODA-win-x64.exe`, `KODA-linux-x64.tar.gz`, `KODA-mac-universal.dmg` |
+| 4 | README público sincronizado | `npm run desktop:sync-readme` |
+| 5 | Ícone no instalador | `npm run desktop:icon` antes de cada `desktop:pack:*` |
 
-**Bloqueador conhecido:** GitHub Actions billing deve estar ativo antes de publicar tag; resolver em GitHub Settings → Billing (manual).
+**Publicação manual (sem Actions):** `npm run desktop:publish` após `desktop:pack:*` em cada SO.
